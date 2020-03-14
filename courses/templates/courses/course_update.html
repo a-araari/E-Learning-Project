@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block sub_nav %}
+	<div class="py-2 text-center bg-dark text-white">
+		<h4>{{ course.name }}</h4>
+	</div>
+{% endblock sub_nav %}
+
+{% block content %}
+	<div class="container">
+		<form method="POST" action="." enctype="multipart/form-data">
+			{% csrf_token %}
+			<div class="row">
+				<div class="col-4">
+					<img class="img-fluid mb-2" src="{{ course.get_thumbnail_url }}">
+
+				<!-- Manual Thumbnail field -->
+					<input type="file" name="thumbnail" accept="image/*" id="id_thumbnail">
+				</div>
+				<div class="col-8">
+					<div id="div_id_name" class="form-group">
+						{{ form.name|as_crispy_field }}
+					</div>
+					<div id="div_id_detail" class="form-group">
+						{{ form.detail|as_crispy_field }}
+					</div>
+					<hr>
+				</div>
+			</div>
+			<input type="submit" value="Update" class="float-right btn btn-primary">
+		</form>
+		{% url 'courses:detail' course.slug  as detail_url %}
+		<a href="{{ next|default:detail_url }}">
+			<button class="float-right mr-3 btn btn-outline-primary">Cancel</button>
+		</a>
+	</div>
+{% endblock content %}
+
+{% block custom_style %}
+<style type="text/css">
+	#div_id_thumbnail div {
+	}
+</style>
+{% endblock custom_style %}

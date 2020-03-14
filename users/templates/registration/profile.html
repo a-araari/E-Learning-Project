@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class="jumbotron bg-light container">
+		<div class="col-md-12">
+			<h2>Your profile</h2>
+			<hr>
+			<!--
+				form:
+					picture : File
+					first_name : String
+					last_name : String
+			-->
+			<form method="POST" action="." enctype="multipart/form-data">
+				{% csrf_token %}
+				<div class="input-group text-center mb-4 mt-4">
+					<div class="col-5">
+						<div class="card p-3 file-field">
+							<div class="file-path-wrapper">
+								<img src="{{ user.get_picture_url }}" class="mb-2 rounded-circle" width='256px'>
+							</div>
+							<div class="btn btn-primary btn-sm col-12">
+								<input type="file" name="picture">
+							</div>
+						</div>
+					</div>
+					<div class="col-7 pl-4 text-left">
+						<label for='first_name'>First name</label>
+						<input id="first_name" placeholder='{{ user.first_name|default:"" }}' name="first_name" type="text" class="form-control">
+						<br>
+						<label for='last_name'>Last name</label>
+						<input id="last_name" placeholder='{{ user.last_name|default:"" }}' name="last_name" type="text" class="form-control">
+					</div>
+				</div>
+				<input type="submit" class="btn btn-primary float-right px-5"  value="Update">
+			</form>
+			<br>
+			<br>
+			<hr>
+			<br>
+			<a href="{% url 'change_password' %}" class="btn btn-warning">
+				<i class="fas fa-unlock-alt"></i>
+				Change password
+			</a>
+			<a href="" class="btn btn-danger text-white">
+				<i class="fas fa-trash-alt"></i>
+				Delete my account
+			</a>
+		</div>
+	</div>
+{% endblock content %}

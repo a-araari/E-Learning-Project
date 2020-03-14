@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block sub_nav %}
+	<div class="py-2 text-center bg-dark text-white">
+		<p class="m-0 ml-3 position-absolute">
+			<a href="{% url 'courses:chapter_list' course.slug %}">chapters</a> /
+			<a href="{% url 'courses:chapter:detail' course.slug chapter.slug %}">{{ chapter.name }}</a> /
+		</p>
+		<br class="d-xm-block d-lg-none">
+		<h4>
+			{{ course.name }}
+			{% if owner %}
+				<a href="{% url 'courses:update' course.slug %}" class="text-warning">
+					<i class="fas fa-edit"></i>
+				</a>
+			{% endif %}
+		</h4>
+	</div>
+{% endblock sub_nav %}
+
+{% block sub_nav_2 %}
+	<div class="row py-1 text-center bg-secondary text-white mx-0">
+		<div class="col-4">
+			{% if previous %}
+				<a href="{{ previous }}">
+					<i class="fas fa-backward fa-2x text-warning"></i>
+				</a>
+			{% else %}
+				<i class="fas fa-backward fa-2x text-dark"></i>
+			{% endif %}
+		</div>
+		<div class="col-4">
+			<h5>
+				{{ chapter.name }}
+				{% if owner %}
+					<a href="{% url 'courses:chapter:update_info' course.slug chapter.slug %}" class="text-warning">
+						<i class="fas fa-edit"></i>
+					</a>
+				{% endif %}
+			</h5>
+		</div>
+		<div class="col-4">
+			{% if next %}				
+				<a href="{{ next }}">
+					<i class="fas fa-forward fa-2x text-warning"></i>
+				</a>
+			{% else %}
+				<i class="fas fa-forward fa-2x text-dark"></i>
+			{% endif %}
+		</div>
+	</div>
+{% endblock sub_nav_2 %}
+
+{% block content %}
+	{% block chapter_content %}
+		
+	{% endblock chapter_content %}
+{% endblock content %}

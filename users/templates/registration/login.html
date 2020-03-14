@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+	<div class="mt-5" >
+		<aside class="col-10 col-md-6 m-auto" style="max-width: 500px;">
+			<div class="card">
+				<article class="card-body">
+					<a href="{% url 'signup' %}" class="float-right btn btn-outline-success">Sign up</a>
+					<h4 class="card-title mb-4 mt-1">Sign in</h4>
+
+					<form method="POST" action=".">
+						{% csrf_token %}
+						<div class="form-group">
+						{{ form|crispy }}
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary btn-block"> Login  </button>
+						</div>
+					</form>
+					<a href="{% url 'password_reset' %}">Forgot password!</a>
+				</article>
+			</div>
+		</aside>
+	</div>
+{% endblock content %}

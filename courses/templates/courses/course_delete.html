@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<form method="POST" action=".">
+					{% csrf_token %}
+					<p>Are you sure you want to delete <span class="text-danger">{{ course.name }}</span> course?</p>
+					<input type="submit" name="confirm" value="Yes, Delete" class="btn btn-danger px-3 float-right">
+					<button type="button" onclick="location.href='{% url "courses:detail" course.slug %}'" class="btn btn-outline-danger px-3 mx-3 float-right">
+						Cancel
+					</button>
+				</form>
+			</div>			
+		</div>
+	</div>
+{% endblock content %}

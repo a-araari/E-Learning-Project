@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+	
+	<div class="mt-5 mb-5">
+		<aside class="col-12 col-md-10 col-lg-8 m-auto">
+			<div class="card">
+				<article class="card-body">
+					<h4 class="card-title mb-4 mt-1"><i class="far fa-envelope"></i> Contact <span class="text-danger">Us</span></h4>
+
+					<form method="POST" action=".">
+						{% csrf_token %}
+						<div class="form-group">
+							{{ form|crispy }}
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary btn-block"> Send  </button>
+							</div>
+						</div>
+					</form>
+				</article>
+			</div>
+		</aside>
+	</div>	
+{% endblock content %}

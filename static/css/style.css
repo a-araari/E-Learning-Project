@@ -1,0 +1,78 @@
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    margin-bottom: 500px;
+}
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 440px;
+    width: 100%;
+    overflow:hidden;
+}
+.footer-copyright {
+	background-color: #5f1bff;
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+}
+nav a {
+	color: #efefef;
+}
+nav a:hover {
+	color: white;
+}
+#openlab-content-container {
+	margin-top: 20px;
+}
+.ol-brand {
+	color: #ffca28;
+	font-size: 24px;
+}
+.ol-brand:hover {
+	color: #ffdb28;
+}
+.ol-shadow {
+	box-shadow: 0 0 10px -5px;
+	border-radius: 5px;
+}
+.ol-shadow-hover {
+	box-shadow: 0 0 0 0;
+}
+.ol-shadow-hover:hover {
+	box-shadow: 0 0 20px -8px;
+	transition: all ease 300ms;
+}
+.active {
+	color: white;
+}
+.asteriskField {
+	display: none;
+}
+.ol-bg-primary {
+	background-color: #6c2efd;
+	outline-color: #6c2efd;
+	border-color: #6c2efd;
+}
+.ol-btn-bg-primary {
+	background-color: #6c2efd;
+	outline-color: #6c2efd;
+	border-color: #6c2efd;
+}
+.ol-btn-bg-primary:hover {
+	background-color: #4b05f1;
+	outline-color: #4b05f1;
+	border-color: #4b05f1;
+}
+.ol-text-primary {
+	color: #6c2efd;
+}
+.ol-footer-links-ul a {
+	color: #ffca28;
+}

@@ -1,0 +1,213 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>
+	OpenLab{% if title %} | {{ title }}{% endif %}
+	</title>
+	<!-- Bootstrap CDN -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+	{{ form.media }}
+
+	<!-- Fontawesome CDN -->
+	<script src="https://kit.fontawesome.com/77189f6bdc.js" crossorigin="anonymous"></script>
+</head>
+<body>
+	<!-- Nav -->
+	<nav class="navbar navbar-primary navbar-expand-sm ol-bg-primary">
+		<div class="container-fluid">
+			<a href="{% url 'home' %}" class="navbar-brand ol-brand">OpenLab</a>
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<a href="{% url 'home' %}" class="nav-link {{ home_active }}">
+						<i class="fas fa-home"></i>
+						Home
+					</a>
+				</li>
+				{% if user.is_student %}
+					<li class="nav-item">
+						<a href="{% url 'courses:list' %}" class="nav-link {{ courses_active }}">
+							Courses
+						</a>
+					</li>
+				{% endif %}
+				<li class="nav-item">
+					<a href="{% url 'about' %}" class="nav-link {{ about_active }}">
+						About
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="{% url 'contact' %}" class="nav-link {{ contact_active }}">
+						Contact
+					</a>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				{% if user.is_authenticated %}
+					{% if user.is_student %}
+						
+					{% elif user.is_teacher %}
+						<li class="nav-item">
+							<a href="{% url 'courses:my_courses' %}" class="nav-link {{ my_courses_active }}">
+								My courses
+								<i class="fas fa-book-open"></i>
+							</a>
+						</li>
+					{% endif %}
+					<li class="nav-item">
+						<a href="{% url 'logout' %}" class="nav-link">
+							Logout
+							<i class="fas fa-sign-out-alt"></i>
+						</a>
+					</li>
+					<button onclick="location.href='{% url "profile" %}'"
+					class="rounded-circle p-0 ml-3"
+					style="background:none; outline:none; border:none; width: 38; height: 38;"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<img src="{{ user.get_picture_url }}" alt="Profile" class="rounded-circle" width="38" height="38">
+					</button>
+				{% else %}
+					<li class="nav-item">
+						<a href="{% url 'signup' %}" class="nav-link">Signup</a>
+					</li>
+					<li class="nav-item">
+						<a href="{% url 'login' %}" class="nav-link">Login</a>
+					</li>
+				{% endif %}
+			</ul>
+		</div>
+	</nav>
+	<!-- Sub nav items -->
+	<div>
+		{% block sub_nav %}
+			
+		{% endblock sub_nav %}
+	</div>
+	
+	<!-- Sub nav items 2 -->
+	<div>
+		{% block sub_nav_2 %}
+			
+		{% endblock sub_nav_2 %}
+	</div>
+
+	<!-- Content -->
+	<div id="openlab-content-container">
+		<!-- Messages -->
+		<div class="container-fluid text-center">
+			{% if messages %}
+				{% for message in messages %}
+					<p class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}">{{ message }}</p>
+				{% endfor %}
+			{% endif %}
+		</div>
+		<!-- Links -->
+		{% block links %}
+			
+		{% endblock links %}
+		
+		<!-- Content -->
+		{% block content %}
+		{% endblock content %}
+	</div>
+	
+	<!-- Footer -->
+	<footer class="footer-page font-small ol-bg-primary pt-4 text-light">
+		<!-- Footer Links -->
+		<div class="container-fluid text-center text-md-left">
+			<!-- Grid row -->
+			<div class="row">
+				<!-- Grid column -->
+				<div class="col-md-5 mt-md-0 mt-3 text-center">
+					<!-- Content -->
+					<h5 class="text-uppercase">Openlab website</h5>
+					<hr class="d-none d-sm-none d-md-block">
+					<p class="d-none d-sm-none d-md-block">
+						+216-99-999-999
+						<br>
+						email@myemail.com
+						<br>
+						100 Street Name
+						<br>
+						City, State, 00000
+					</p>
+				</div>
+				<!-- Grid column -->
+				<hr class="clearfix w-100 d-md-none pb-3">
+				<!-- Grid column -->
+				<div class="col-md-2 mb-md-0 mb-3 text-center">
+					<!-- Links -->
+					<h5 class="text-uppercase">site links</h5>
+					<hr class="d-none d-sm-none d-md-block">
+					<ul class="list-unstyled ol-footer-links-ul">
+						<li>
+							<a href="{% url 'contact' %}">Contact Us</a>
+						</li>
+						<li>
+							<a href="{% url 'about' %}">About Us</a>
+						</li>
+						<li>
+							<a href="{% url 'courses:list' %}">Courses</a>
+						</li>
+						<li>
+							<a href="#">FAQs</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-5 mb-3 text-center">
+					<h5 class="d-none d-sm-none d-md-block text-uppercase">Social Media</h5>
+					<hr class="d-none d-sm-none d-md-block pb-5">
+					<!-- Facebook -->
+					<a href="#" class="text-warning fb-ic mx-2 col-1">
+						<i class="fab fa-facebook-f fa-2x"></i>
+					</a>
+					<!-- Twitter -->
+					<a href="#" class="text-warning tw-ic mx-2 col-1">
+						<i class="fab fa-twitter fa-2x"></i>
+					</a>
+					<!-- Google +-->
+					<a href="#" class="text-warning gplus-ic mx-2 col-1">
+						<i class="fab fa-google-plus-g fa-2x"></i>
+					</a>
+					<!--Linkedin -->
+					<a href="#" class="text-warning li-ic mx-2 col-1">
+						<i class="fab fa-linkedin-in fa-2x"></i>
+					</a>
+					<!--Instagram-->
+					<a href="#" class="text-warning ins-ic mx-2 col-1">
+						<i class="fab fa-instagram fa-2x"></i>
+					</a>
+				</div>
+			</div>
+			<!-- Grid row -->
+		</div>
+		<!-- Footer Links -->
+		<!-- Copyright -->
+		<div class="footer-copyright text-center py-3">
+			 © 2020 Copyright:
+			<span href="{% url 'home' %}" style="color: #ffca28;"> Opeblab.tn</span>
+		</div>
+		<!-- Copyright -->
+	</footer>
+	<!-- Footer -->
+
+	<!-- FontAwesome CDN  -->
+	<script src="https://kit.fontawesome.com/9f91fbdf34.js" crossorigin="anonymous"></script>
+
+	<!-- Custom CSS -->
+	{% block custom_style %}
+				
+	{% endblock custom_style %}
+	
+	<!-- Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

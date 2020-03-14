@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block sub_nav %}
+<div class="py-2 text-center bg-dark text-white">
+	<h4>
+	{{ course.name }}
+	{% if owner %}
+		<a href="{% url 'courses:update' course.slug %}" class="text-warning">
+			<i class="fas fa-edit"></i>
+		</a>
+	{% endif %}
+	</h4>
+</div>
+{% endblock sub_nav %}
+
+{% block content %}
+<div class="container">
+<div class="row">
+	<div class="col-md-4 text-center">
+		<img class="img-fluid" src="{{ course.get_thumbnail_url }}">
+	</div>
+	<div class="col-md-8 mt-3">
+		<p>
+			{{ course.detail }}
+			{% if owner %}
+				<a href="{% url 'courses:update' course.slug %}" class="text-primary">
+					<i class="fas fa-edit"></i>
+				</a>
+			{% endif %}
+		</p>
+		<hr>
+		<p>Teacher :
+			<a href="{% url 'teacher_profile' course.teacher.user.id %}"
+				class='{% if user.is_teacher and course.teacher.user == user %}text-danger{% endif %}'>
+				<strong>
+				{{ course.teacher.user.get_shortname }}
+				</strong>
+			</a>
+		</p>
+		<p>Students : {{ course.students.count }}</p>
+		<p>Date : {{ course.created_date|date:'d-M-Y h:i' }}</p>
+		<p>Last update : {{ course.last_update_date|date:'d-M-Y h:i' }}</p>
+	</div>
+	<div class="col-12 mt-4">
+		Chapters : <a href="{% url 'courses:chapter_list' course.slug %}">see all..</a>
+		{% if owner %}
+			<a class="btn btn-sm float-right btn-success text-white px-2"
+				href="{% url 'courses:chapter_create' course.slug %}">
+				<i class="fas fa-plus-square mr-2"></i>
+				Add
+			</a>
+		{% endif %}
+		{% if chapter_list %}
+			<table class="table table-borderless table-striped ">
+				<tbody>
+					{% for chapter in chapter_list|slice:':5' %}
+						{% url 'courses:chapter:detail' course.slug chapter.slug as detail_url%}
+						<tr onclick="location.href='{{ detail_url }}'" style="cursor: pointer;">
+							<td><i class="fas fa-book-open fa-2x ol-text-primary"></i></td>
+							<td>
+								<a href="{{ detail_url }}">
+									{{ chapter.name }}
+								</a>
+							</td>
+							<td class="d-none d-sm-none d-md-block">{{ chapter.detail }}</td>
+							<td>
+								{% if owner %}
+									<a class="btn btn-sm float-right btn-danger text-white px-2 ml-2"
+										href="{% url 'courses:chapter:delete' course.slug chapter.slug %}">
+										<i class="fas fa-trash mr-2"></i>
+										Delete
+									</a>
+									<a class="btn btn-sm float-right btn-primary text-white px-2 "
+										href="{% url 'courses:chapter:update_info' course.slug chapter.slug %}">
+										<i class="fas fa-edit mr-2"></i>
+										Edit
+									</a>
+								{% endif %}
+							</td>
+						</tr>
+					{% endfor %}
+					{% if chapter_list.count > 5 %}
+						<tr onclick="location.href='{% url 'courses:chapter_list' course.slug %}'" style="cursor: pointer;">
+							<td>...</td>
+							<td>
+								<a href="{% url 'courses:chapter_list' course.slug %}">
+									Click to view the full list...
+								</a>
+							</td>
+							<td></td>
+							<td></td>
+						</tr>
+					{% endif %}
+				</tbody>
+			</table>
+		{% else %}
+			<p class="text-danger">No chapters, yet.</p>
+		{% endif %}
+	</div>
+</div>
+</div>
+{% endblock content %}
+
+{% block custom_style %}
+<style type="text/css">
+	table tr:hover {
+		box-shadow: 0 0 5px -2px;
+		transition: all ease 100ms;
+	}
+</style>
+{% endblock custom_style %}

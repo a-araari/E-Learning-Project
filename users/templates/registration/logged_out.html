@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div class="jumbotron container text-center bg-light">
+		<h3>You're logged out, <a href="{% url 'login' %}">Login again</a> or <a href="{% url 'signup' %}">create an account</a></h3>
+	</div>
+{% endblock content %}

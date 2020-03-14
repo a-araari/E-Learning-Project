@@ -1,0 +1,42 @@
+{% extends "./chapter_base.html" %}
+
+{% load static %}
+
+{% block chapter_content %}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-8 border-right">
+				<h5>Learn</h5>
+				<hr>
+				{{ chapter.content }}
+			</div>
+			<div class="col-md-4 border-left">
+				<hr class="d-block d-md-none">
+				<h5>Practice</h5>
+				<hr>
+				<img src="{% static "images/practice1.png" %}" class="col-12">
+				<img src="{% static "images/practice2.png" %}" class="col-12">
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-3 text-center"></div>
+			<div class="col-3 text-center ol-bg-color">
+			{% if previous %}				
+				<button onclick="location.href='{{ previous }}'" class="btn btn-warning px-4">Back</button>
+			{% else %}
+				<button class="btn btn-dark disabled px-4">Back</button>
+			{% endif %}
+			</div>
+			<div class="col-3 text-center">
+			{% if next %}				
+				<button onclick="location.href='{{ next }}'" class="btn btn-warning px-4">Next</button>
+			{% else %}
+				<button class="btn btn-dark disabled px-4">Next</button>
+			{% endif %}
+			</div>
+			<div class="col-3 text-center"></div>
+		</div>
+{% load static %}
+	</div>
+{% endblock chapter_content %}

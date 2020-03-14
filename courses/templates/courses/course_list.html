@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container text-center p-2">
+	{% if not course_list %}
+		<h3 class="mb-4 text-primary">
+				Sorry, There is no courses, yet.
+		</h3>
+		{% if user.is_teacher %}
+			<h5 class="mb-4">Add a new course by clicking on</h5>
+			<a class="btn mb-2 px-4 btn-outline-primary" href="{% url 'courses:create' %}">
+				<i class="mr-1 fas fa-plus-square"></i>
+				Add
+			</a>
+		{% endif %}
+	{% else %}
+		{% if user.is_authenticated %}
+			<h2 class="m-4 ol-text-primary">
+				Welcome back {{ user.first_name }}!
+			</h2>
+			{% url 'courses:my_courses' as my_courses_path %}
+			{% if user.is_teacher %}
+				{% if request.path != my_courses_path %}
+					<h5 class="mb-4">See your courses by clicking on</h5>
+					<a class="btn mb-2 px-4 btn-outline-primary btn-lg" href="{% url 'courses:my_courses' %}">
+						<i class="fas fa-book-open"></i>
+						My courses
+					</a>
+				{% else %}
+					<h5 class="mb-4">Add a new course by clicking on</h5>
+					<a class="btn mb-2 px-4 btn-outline-primary btn-lg" href="{% url 'courses:create' %}">
+						<i class="mr-1 fas fa-plus-square"></i>
+						Add
+					</a>
+				{% endif %}
+			{% endif %}
+		{% else %}
+			<h2 class="m-4 ol-text-primary">Hi Stranger!</h2>
+			<h5 class="mb-4">Sign up in order to take or create courses</h5>
+			<a class="btn mb-2 px-4 btn-outline-primary btn-lg" href="{% url 'courses:create' %}">
+				<i class="mr-1 fas fa-user-plus"></i>
+				signup
+			</a>
+		{% endif %}
+	{% endif %}
+</div>		
+
+{% if course_list %}
+	<div class="container mt-3">
+		<div class="row">
+			{% for course in course_list %}
+				{% include "./course_item.html" %}
+			{% endfor %}
+		</div>
+	</div>
+{% endif %}	
+
+{% endblock content %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div class="container text-center bg-light p-5 ol-shadow">
+		<h3 class="mb-4 text-primary">
+			{% if course_list %}
+				Add a course
+			{% else %}	
+				Sorry, you don't have any courses, yet.
+			{% endif %}
+		</h3>
+		<a class="btn mb-2 px-4 btn-outline-primary btn-lg" href="{% url 'courses:create' %}">
+			<i class="mr-1 fas fa-plus-square"></i>
+			Add
+		</a>
+
+	</div>
+	{% if courses %}
+		<div class="container mt-5">
+			<h3>{{ user_profile.first_name }}'s courses :</h3>
+			<div class="row">
+			{% for course in courses %}
+				{% include "courses/course_item.html" %}
+			{% endfor %}
+			</div>
+		</div>
+	{% endif %}
+
+{% endblock content %}
