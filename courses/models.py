@@ -28,11 +28,13 @@ class Course(models.Model):
 			return '/media/courses/thumbnails/default.jpg'
 
 	def get_slug(self):
-		return create_slug(Course, self.name)
+		def get_updated_qs(slug):
+			return self.objects.filter(slug=slug.lower()).order_by("-id")
+		return create_slug(get_updated_qs(self.name), get_updated_qs, self.name)
 
 
 class Chapter(models.Model):
-	slug 		= models.SlugField(unique=True)
+	slug 		= models.SlugField()
 	name 		= models.CharField(max_length=20)
 	detail 		= models.CharField(max_length=250, verbose_name='About the chapter')
 	content 	= models.TextField(null=True)
@@ -54,7 +56,10 @@ class Chapter(models.Model):
 		    })
 
 	def get_slug(self):
-		return create_slug(Chapter, self.name)
+		def get_updated_qs(slug):
+			return self.course.chapter_set.filter(slug=slug.lower()).order_by("-id")
+
+		return create_slug(get_updated_qs(self.name), get_updated_qs, self.name)
 
 	def get_next_index(self):
 		if self.course.chapter_set:
@@ -63,17 +68,15 @@ class Chapter(models.Model):
 			return 1
 
 
-def create_slug(model, name):
+def create_slug(qs, get_updated_qs, name):
 	name = name.replace(' ', '-').lower()
 	slug = name
+	count = 0
 
-	if name is not None:
-		slug = name
+	while qs.exists():
+		slug = f'{name}-{qs.count() + count}'
 
-	qs = model.objects.filter(slug=slug).order_by("-id")
-
-	if qs.exists():
-		name = f"{slug}-{qs.first().id}"
-		return create_slug(model, name=name)
+		count += 1
+		qs = get_updated_qs(slug)
 
 	return slug

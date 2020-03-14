@@ -183,7 +183,7 @@ def chapter_create(request, course_slug):
 @chapter_belongs_to_course_required
 def chapter_detail(request, course_slug, chapter_slug):
 	course = get_object_or_404(Course, slug=course_slug)
-	chapter = get_object_or_404(Chapter, slug=chapter_slug)
+	chapter = get_object_or_404(course.chapter_set, slug=chapter_slug)
 	chapter_set = course.chapter_set
 
 	context = {
@@ -206,7 +206,7 @@ def chapter_detail(request, course_slug, chapter_slug):
 @chapter_belongs_to_course_required
 def chapter_delete(request, course_slug, chapter_slug):
 	course = get_object_or_404(Course, slug=course_slug)
-	chapter = get_object_or_404(Chapter, slug=chapter_slug)
+	chapter = get_object_or_404(course.chapter_set, slug=chapter_slug)
 
 	if request.method == 'POST':
 		delete = request.POST.get('confirm', None)
@@ -231,7 +231,7 @@ def chapter_delete(request, course_slug, chapter_slug):
 @chapter_belongs_to_course_required
 def chapter_update_info(request, course_slug, chapter_slug):
 	course = get_object_or_404(Course, slug=course_slug)
-	chapter = get_object_or_404(Chapter, slug=chapter_slug)
+	chapter = get_object_or_404(course.chapter_set, slug=chapter_slug)
 
 	if request.method == 'POST':
 		form = ChapterEditInfoForm(request.POST or None,
@@ -265,7 +265,7 @@ def chapter_update_info(request, course_slug, chapter_slug):
 @chapter_belongs_to_course_required
 def chapter_update_content(request, course_slug, chapter_slug):
 	course = get_object_or_404(Course, slug=course_slug)
-	chapter = get_object_or_404(Chapter, slug=chapter_slug)
+	chapter = get_object_or_404(course.chapter_set, slug=chapter_slug)
 
 	if request.method == 'POST':
 		form = ChapterEditContentForm(request.POST or None, instance=chapter)
