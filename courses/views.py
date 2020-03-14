@@ -13,7 +13,6 @@ from .forms import (
 from .decorators import (
 		teacher_required,
 		teacher_owner_required,
-		chapter_belongs_to_course_required
 	)
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
@@ -35,7 +34,7 @@ def course_create(request):
 			course.teacher = teacher
 			course.save()
 			messages.success(request, f'\'{course.name}\' created.')
-			return redirect(reverse('courses:detail', kwargs={'course_slug': course.slug}))
+			return redirect('courses:detail', course_slug=course.slug)
 	else:
 		form = CourseCreateForm()
 
@@ -164,10 +163,10 @@ def chapter_create(request, course_slug):
 			chapter.save()
 			messages.success(request, f'\'{chapter.name}\' chapter created.')
 
-			return redirect(reverse('courses:chapter:update_content', kwargs={
-				'course_slug': course.slug,
-				'chapter_slug': chapter.slug,
-			}))
+			return redirect('courses:chapter:update_content',
+				course_slug=course_.slug,
+				chapter_slug=chapter.slug,
+			)
 	else:
 		form = ChapterEditInfoForm()
 
@@ -180,9 +179,9 @@ def chapter_create(request, course_slug):
 	return render(request, 'chapters/chapter_create.html', context)
 
 
-@chapter_belongs_to_course_required
 def chapter_detail(request, course_slug, chapter_slug):
 	course = get_object_or_404(Course, slug=course_slug)
+	# Getting the chapter from course__chater_set, so no need for @decorators
 	chapter = get_object_or_404(course.chapter_set, slug=chapter_slug)
 	chapter_set = course.chapter_set
 
@@ -203,7 +202,6 @@ def chapter_detail(request, course_slug, chapter_slug):
 
 @login_required
 @teacher_owner_required
-@chapter_belongs_to_course_required
 def chapter_delete(request, course_slug, chapter_slug):
 	course = get_object_or_404(Course, slug=course_slug)
 	chapter = get_object_or_404(course.chapter_set, slug=chapter_slug)
@@ -215,7 +213,7 @@ def chapter_delete(request, course_slug, chapter_slug):
 			chapter.delete()
 			messages.success(request, 'Chapter deleted.')
 
-			return redirect(reverse('courses:chapter_list', kwargs={'course_slug': course.slug}))
+			return redirect('courses:chapter_list', course_slug=course.slug)
 
 	context = {
 		'title': 'Delete chapter',
@@ -228,7 +226,6 @@ def chapter_delete(request, course_slug, chapter_slug):
 
 @login_required
 @teacher_owner_required
-@chapter_belongs_to_course_required
 def chapter_update_info(request, course_slug, chapter_slug):
 	course = get_object_or_404(Course, slug=course_slug)
 	chapter = get_object_or_404(course.chapter_set, slug=chapter_slug)
@@ -242,10 +239,10 @@ def chapter_update_info(request, course_slug, chapter_slug):
 		if form.is_valid():
 			chapter = form.save()
 			messages.success(request, 'Chapter updated successfully.')
-			return redirect(reverse('courses:chapter:detail', kwargs={
-						'course_slug': course.slug,
-						'chapter_slug': chapter.slug,
-					}))
+			return redirect('courses:chapter:detail',
+						course_slug=course.slug,
+						chapter_slug=chapter.slug,
+					)
 
 	else:
 		form = ChapterEditInfoForm(instance=chapter)
@@ -262,7 +259,6 @@ def chapter_update_info(request, course_slug, chapter_slug):
 
 @login_required
 @teacher_owner_required
-@chapter_belongs_to_course_required
 def chapter_update_content(request, course_slug, chapter_slug):
 	course = get_object_or_404(Course, slug=course_slug)
 	chapter = get_object_or_404(course.chapter_set, slug=chapter_slug)
@@ -273,10 +269,10 @@ def chapter_update_content(request, course_slug, chapter_slug):
 		if form.is_valid():
 			chapter = form.save()
 			messages.success(request, 'Chapter updated successfully.')
-			return redirect(reverse('courses:chapter:detail', kwargs={
-						'course_slug': course.slug,
-						'chapter_slug': chapter.slug,
-					}))
+			return redirect('courses:chapter:detail',
+						course_slug=course.slug,
+						chapter_slug=chapter.slug,
+					)
 
 	else:
 		form = ChapterEditContentForm(instance=chapter)

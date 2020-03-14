@@ -18,6 +18,7 @@
 						<div class="form-group">
 							<button type="submit" class="btn btn-primary btn-block"> Login  </button>
 						</div>
+						<input type="hidden" name="next" value="{{ next }}">
 					</form>
 					<a href="{% url 'password_reset' %}">Forgot password!</a>
 				</article>
