@@ -29,7 +29,7 @@ class Course(models.Model):
 
 	def get_slug(self):
 		def get_updated_qs(slug):
-			return self.objects.filter(slug=slug.lower()).order_by("-id")
+			return Course.objects.filter(slug=slug.lower()).order_by("-id")
 		return create_slug(get_updated_qs(self.name), get_updated_qs, self.name)
 
 
