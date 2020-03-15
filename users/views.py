@@ -10,14 +10,31 @@ from .models import Student, Teacher, User
 from courses.models import Course
 
 
+def user_not_logged_in_required(func):
+
+	def wrapper(request, *args, **kwargs):
+		if request.user.is_authenticated:
+			messages.warning(request, 'You are allready logged in!. Please, logout to continue.')
+
+			return redirect('home')
+		else:
+			return func(request, *args, **kwargs)
+
+
+	return wrapper
+
+
 def teacher_profile(request, pk):
 	teacher = get_object_or_404(Teacher, user_id=pk)
+	course_list = Course.objects.filter(teacher=teacher)
+
 	context = {
 		'title': f'{teacher.user.get_shortname()}\'s profile',
 		'teacher': True,
 		'user_profile': teacher.user,
-		'courses': Course.objects.filter(teacher=teacher),
+		'courses': course_list,
 	}
+
 	return render(request, 'registration/profile_show.html', context)
 
 
@@ -28,30 +45,86 @@ def student_profile(request, pk):
 		'student': True,
 		'user_profile': student.user,
 	}
+
 	return render(request, 'registration/profile_show.html', context)
 
 
+@user_not_logged_in_required
 def login(request):
-	if request.user.is_authenticated:
-		messages.warning(request, 'You are allready logged in. You may logout to be able to login again.')
-		return redirect('home')
 	return LoginView.as_view()(request)
 
 
 def logout(request):
 	if not request.user.is_authenticated:
 		return redirect('home')
+
 	return LogoutView.as_view()(request)
 
 
+@user_not_logged_in_required
 def signup(request):
 	context = {
 		'title': 'Sign up',
 	}
+
 	return render(request, 'registration/signup.html', context)
 
 
+@user_not_logged_in_required
+def student_signup(request):
+	form = OpenlabUserCreationForm()
+	if request.method == 'POST':
+		form = OpenlabUserCreationForm(request.POST)
 
+		if form.is_valid():
+			user = form.save(commit=False)
+			user.is_student = True
+			user.is_teacher = False
+			user.save()
+			messages.success(request, 'Your Student account have been created.')
+
+			auth_login(request, user)
+
+			next_ = request.POST['next'] or '/'
+			next_ = '/' if next_ == request.path else next_
+
+			return redirect(next_)
+		else:
+			messages.error(request, 'Wrong information, please try again!')
+	context = {
+		'form': form,
+	}
+	return render(request, 'registration/student_signup.html', context)
+
+
+@user_not_logged_in_required
+def teacher_signup(request):
+	form = OpenlabUserCreationForm()
+	if request.method == 'POST':
+		form = OpenlabUserCreationForm(request.POST)
+
+		if form.is_valid():
+			user = form.save(commit=False)
+			user.is_student = False
+			user.is_teacher = True
+			user.save()
+			messages.success(request, 'Your Teacher account have been created.')
+
+			auth_login(request, user)
+
+			next_ = request.POST['next'] or '/'
+			next_ = '/' if next_ == request.path else next_
+
+			return redirect(next_)
+		else:
+			messages.error(request, 'Wrong information, please try again!')
+	context = {
+		'form': form,
+	}
+	return render(request, 'registration/teacher_signup.html', context)
+
+
+@login_required
 def change_password(request):
 	if request.method == 'POST':
 		form = PasswordChangeForm(request.user, request.POST)
@@ -71,50 +144,6 @@ def change_password(request):
 	}
 
 	return render(request, 'registration/change_password.html', context)
-
-
-def student_signup(request):
-	form = OpenlabUserCreationForm()
-	if request.method == 'POST':
-		form = OpenlabUserCreationForm(request.POST)
-
-		if form.is_valid():
-			user = form.save(commit=False)
-			user.is_student = True
-			user.is_teacher = False
-			user.save()
-			messages.success(request, 'Your Student account have been created.')
-
-			auth_login(request, user)
-			return redirect('/')
-		else:
-			messages.error(request, 'Wrong information, please try again!')
-	context = {
-		'form': form,
-	}
-	return render(request, 'registration/student_signup.html', context)
-
-
-def teacher_signup(request):
-	form = OpenlabUserCreationForm()
-	if request.method == 'POST':
-		form = OpenlabUserCreationForm(request.POST)
-
-		if form.is_valid():
-			user = form.save(commit=False)
-			user.is_student = False
-			user.is_teacher = True
-			user.save()
-			messages.success(request, 'Your Teacher account have been created.')
-
-			auth_login(request, user)
-			return redirect('/')
-		else:
-			messages.error(request, 'Wrong information, please try again!')
-	context = {
-		'form': form,
-	}
-	return render(request, 'registration/teacher_signup.html', context)
 
 
 # override the default PasswordRestComplete template view
@@ -148,3 +177,4 @@ def profile(request):
 		'title': 'Profile',
 	}
 	return render(request, 'registration/profile.html', context)
+
