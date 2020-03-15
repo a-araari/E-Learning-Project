@@ -1,0 +1,27 @@
+<div class="container-fluid mt-2">
+	{% if messages %}
+		{% for message in messages %}
+			<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+				<span style="width: 30px" class="text-center">
+					<i class="fas 
+						{% if message.tags == 'success' %}
+							fa-check
+						{% elif message.tags == 'warning' %}
+							fa-exclamation
+						{% elif message.tags == 'danger' %}
+							fa-times
+						{% elif message.tags == 'info' %}
+							fa-info
+						{% endif %}
+						" style="width: 16px"></i>
+				</span>
+				<span class="pl-4">{{ message }}</span>
+
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		{% endfor %}
+	{% endif %}
+
+</div>

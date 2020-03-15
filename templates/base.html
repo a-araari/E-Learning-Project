@@ -97,16 +97,11 @@
 		{% endblock sub_nav_2 %}
 	</div>
 
+	<!-- Messages -->
+	{% include "./messages.html" %}
+
 	<!-- Content -->
 	<div id="openlab-content-container">
-		<!-- Messages -->
-		<div class="container-fluid text-center">
-			{% if messages %}
-				{% for message in messages %}
-					<p class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}">{{ message }}</p>
-				{% endfor %}
-			{% endif %}
-		</div>
 		<!-- Links -->
 		{% block links %}
 			

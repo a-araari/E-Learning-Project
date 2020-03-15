@@ -76,3 +76,22 @@ nav a:hover {
 .ol-footer-links-ul a {
 	color: #ffca28;
 }
+.alert {
+	border-radius: 0;
+	color: white;
+	font-weight: bold;
+}
+.alert i {
+}
+.alert-info {
+	background: linear-gradient(to right, #0280b3 50px, #01aaf1 0);
+}
+.alert-success {
+	background: linear-gradient(to right, #3d813c 50px, #4daf50 0);
+}
+.alert-warning {
+	background: linear-gradient(to right, #bf9107 50px, #fec107 0);
+}
+.alert-danger {
+	background: linear-gradient(to right, #a80000 50px, #d60000 0);
+}
