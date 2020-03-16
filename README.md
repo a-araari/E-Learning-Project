@@ -5,33 +5,32 @@ You can view a working version of this app
 [here](http://...-django.herokuapp.com) (not working yet)
 
 # Introduction
-<img src="---" width="720" height="400">
-# Installation
-Assuming you use virtualenv, follow these steps to download and run the
-e-learning application in this directory:
+<img src="https://github.com/A-Arari/openlab/blob/master/screenshots/screenshot-full.png">
 
-    $ git clone https://github.com/avuletica/eLearning.git
-    $ cd eLearning
+# Installation
+Assuming python 3.X istalled, follow these steps to download and run the openlab application
+
+Install Virtualenv first
+
+    $ pip install virtualenv
+    
+ Download this project, or clone it
+ then navigate to this cloned directory and run:
+
     $ virtualenv venv
-    $ source ./venv/bin/activate
+    $ "venv/scripts/activate"
+    $ pip install django
+    $ cd openalab
     $ pip install -r requirements
     $ python manage.py migrate
     $ python manage.py runserver
 
-* Initial data supports 3 types of users for testing purposes:
-    * User (username=user, password=letmein123)
-    * Professor (username=professor, password=letmein123)
-    * Admin (username=admin, password=letmein123)
+* Initial data supports 3 types of users for testing purposes(change the number in email from 1-4 to use different users):
+    * Students (email=student1@gmail.com, password=passmot123)
+    * Professor (email=teachert1@gmail.com, password=passmot123)
+    * Admin (email=admin@gmail.com, password=passmot123)
     * Visit http://127.0.0.1:8000/
-
-# Compatibility
-* Python 2.7
-* Django 1.9
-* SQLite, PostgreSQL, MySQL
-
-# Notes
-* This project uses third-party library tinymce (https://www.tinymce.com/) with own licence
-    * Licence is located in static_files/js/tinymce
-* If you wish to use contact/registration features you will need to add settings_sensitive file in source
-*	You can find template for settings sensitive in source directory
-*	For more information visit (https://docs.djangoproject.com/ja/1.9/topics/email/)
+    
+    
+Chapter detail:
+<img src="https://github.com/A-Arari/openlab/blob/master/screenshots/screenshot-chapter.png">
