@@ -40,6 +40,13 @@
 		<p>Students : {{ course.students.count }}</p>
 		<p>Date : {{ course.created_date|date:'d-M-Y h:i' }}</p>
 		<p>Last update : {{ course.last_update_date|date:'d-M-Y h:i' }}</p>
+		{% if owner %}
+			<a class="btn btn-sm float-right btn-outline-danger px-2"
+				href="{% url 'courses:delete' course.slug %}">
+				<i class="fas fa-times mr-2"></i>
+				Delete course
+			</a>
+		{% endif %}
 	</div>
 	<div class="col-12 mt-4">
 		Chapters : <a href="{% url 'courses:chapter_list' course.slug %}">see all..</a>
@@ -47,7 +54,7 @@
 			<a class="btn btn-sm float-right btn-success text-white px-2"
 				href="{% url 'courses:chapter_create' course.slug %}">
 				<i class="fas fa-plus-square mr-2"></i>
-				Add
+				Add chapter
 			</a>
 		{% endif %}
 		{% if chapter_list %}
@@ -62,7 +69,7 @@
 									{{ chapter.name }}
 								</a>
 							</td>
-							<td class="d-none d-sm-none d-md-block">{{ chapter.detail }}</td>
+							<td class="d-none d-lg-block">{{ chapter.detail }}</td>
 							<td>
 								{% if owner %}
 									<a class="btn btn-sm float-right btn-danger text-white px-2 ml-2"
