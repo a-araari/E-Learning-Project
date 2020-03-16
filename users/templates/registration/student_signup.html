@@ -8,10 +8,10 @@
 		<aside class="col-12 col-md-10 col-lg-8 m-auto">
 			<div class="card">
 				<article class="card-body">
-					<a href="{% url 'teacher_signup' %}?next={{ request.GET.next }}" class="float-right btn btn-outline-success">Teacher --></a>
+					<a href="{% url 'teacher_signup' %}?" class="float-right btn btn-outline-success">Teacher --></a>
 					<h4 class="card-title mb-4 mt-1">Student account</h4>
 
-					<form method="POST" action=".?next={{ request.GET.next }}">
+					<form method="POST" action=".?">
 						{% csrf_token %}
 						<div class="form-group">
 							{{ form.email|as_crispy_field }}
