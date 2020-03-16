@@ -1,21 +1,23 @@
 # Openlab
 E-Learning Website
 
-You can view a working version of this app
-[here](http://...-django.herokuapp.com) (not working yet)
+There is no live version, yet. To run the project, follow the instructions bellow.
 
-# Introduction
+# Screenshot
 <img src="https://github.com/A-Arari/openlab/blob/master/screenshots/screenshot-full.png">
 
 # Installation
-Assuming python 3.X istalled, follow these steps to download and run the openlab application
+#### Assuming python 3.X istalled :
 
-Install Virtualenv first
+Install Virtualenv first by
 
     $ pip install virtualenv
     
- Download this project, or clone it
- then navigate to this cloned directory and run:
+Clone the porject using git (install git if you didn't)
+
+    $ git clone https://github.com/A-Arari/openlab.git
+
+Navigate to this cloned directory and run:
 
     $ virtualenv venv
     $ "venv/scripts/activate"
@@ -31,6 +33,5 @@ Install Virtualenv first
     * Admin (email=admin@gmail.com, password=passmot123)
     * Visit http://127.0.0.1:8000/
     
-    
-Chapter detail:
-<img src="https://github.com/A-Arari/openlab/blob/master/screenshots/screenshot-chapter.png">
+# WYSIWYG editor used:
+    CKEditor see [ckeditor.com](https://ckeditor.com/docs/ckeditor5/latest/index.html)
