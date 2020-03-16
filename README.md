@@ -21,7 +21,6 @@ Navigate to the parent directory(openlab) and run:
 
     $ virtualenv venv
     $ "venv/scripts/activate"
-    $ pip install django
     $ cd openlab
     $ pip install -r requirements.txt
     $ py manage.py runserver
