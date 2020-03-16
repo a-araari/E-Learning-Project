@@ -22,15 +22,16 @@ Navigate to the parent directory(openlab) and run:
     $ virtualenv venv
     $ "venv/scripts/activate"
     $ pip install django
-    $ cd openalab
-    $ pip install -r requirements
+    $ cd openlab
+    $ pip install -r requirements.txt
     $ py manage.py runserver
+    
+Now Visit http://127.0.0.1:8000/
 
 * Initial data supports 3 types of users for testing purposes(change the number in email from 1-4 to use different users):
     * Students (email=student1@gmail.com, password=passmot123)
     * Professor (email=teachert1@gmail.com, password=passmot123)
     * Admin (email=admin@gmail.com, password=passmot123)
-    * Visit http://127.0.0.1:8000/
     
-# WYSIWYG editor used:
+## WYSIWYG editor used:
    CKEditor see [ckeditor.com](https://ckeditor.com/docs/ckeditor5/latest/index.html)
