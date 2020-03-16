@@ -30,3 +30,7 @@ Install Virtualenv first
     * Professor (email=teachert1@gmail.com, password=passmot123)
     * Admin (email=admin@gmail.com, password=passmot123)
     * Visit http://127.0.0.1:8000/
+    
+    
+Chapter detail:
+<img src="https://github.com/A-Arari/openlab/blob/master/screenshots/screenshot-chapter.png">
