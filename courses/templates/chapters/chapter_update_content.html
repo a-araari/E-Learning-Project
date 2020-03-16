@@ -1,27 +1,16 @@
 {% extends "./chapter_base.html" %}
 
-{% block chapter_content %}
+{% block father_container %}
+	<p>Loading Editor..</p>
 	<div class="container-fluid text-center m-auto">
 		<form method="POST" action="{% url 'courses:chapter:update_content' course.slug chapter.slug %}" enctype="multipart/form-data">
 			{% csrf_token %}
 			<div class="row">
 				<div class="col-12">
+					{{ form.media }}
 					{{ form }}
 				</div>
 			</div>
-			<input type="submit" value="Save" class="float-right btn btn-primary mt-3">
 		</form>
-		{% url 'courses:chapter:detail' course.slug chapter.slug  as detail_url %}
-		<a href="{{ next|default:detail_url }}">
-			<button class="float-right mr-3 btn btn-outline-primary mt-3">Cancel</button>
-		</a>
 	</div>
-{% endblock chapter_content %}
-
-{% block custom_style %}
-	<style type="text/css">
-		label[for='id_content'] {
-			display: none;
-		}
-	</style>
-{% endblock custom_style %}
+{% endblock father_container %}

@@ -164,7 +164,7 @@ def chapter_create(request, course_slug):
 			messages.success(request, f'\'{chapter.name}\' chapter created.')
 
 			return redirect('courses:chapter:update_content',
-				course_slug=course_.slug,
+				course_slug=course.slug,
 				chapter_slug=chapter.slug,
 			)
 	else:

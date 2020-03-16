@@ -19,6 +19,10 @@
 			<input type="submit" value="Save" class="float-right btn btn-primary">
 		</form>
 		{% url 'courses:chapter:detail' course.slug chapter.slug  as detail_url %}
+		<a href="{% url 'courses:chapter:update_content' course.slug chapter.slug %}" class="btn btn-secondary">
+			<i class="fas fa-edit"></i>
+			Edit Content instead
+		</a>
 		<a href="{{ next|default:detail_url }}">
 			<button class="float-right mr-3 btn btn-outline-primary">Cancel</button>
 		</a>

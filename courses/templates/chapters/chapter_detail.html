@@ -8,11 +8,16 @@
 			<div class="col-md-8 border-right">
 				<h5>Learn</h5>
 				<hr>
-				{{ chapter.content }}
+				{% if owner %}
+					<a href="{% url 'courses:chapter:update_content' course.slug chapter.slug %}" class="text-warning float-right">
+						<i class="fas fa-edit" style="font-size: 24px; position: relative;"></i>
+					</a>
+				{% endif %}
+				{{ chapter.content|safe }}
 			</div>
 			<div class="col-md-4 border-left">
 				<hr class="d-block d-md-none">
-				<h5>Practice</h5>
+				<h5>Practice</h5><p> (In development)</p>
 				<hr>
 				<img src="{% static "images/practice1.png" %}" class="col-12">
 				<img src="{% static "images/practice2.png" %}" class="col-12">
@@ -37,6 +42,12 @@
 			</div>
 			<div class="col-3 text-center"></div>
 		</div>
-{% load static %}
 	</div>
 {% endblock chapter_content %}
+
+{% block custom_style %}
+	<!-- Code Highlight plugin -->
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/default.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+{% endblock custom_style %}

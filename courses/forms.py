@@ -33,8 +33,8 @@ class ChapterEditInfoForm(forms.ModelForm):
 
 
 class ChapterEditContentForm(forms.ModelForm):
-	content = forms.CharField(widget=forms.TextInput(), required=False)
 
 	class Meta:
 		model = Chapter
 		fields = ('content',)
+		labels = {'content': ''}

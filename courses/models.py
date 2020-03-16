@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from users.models import Teacher, Student
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class Course(models.Model):
@@ -37,8 +38,8 @@ class Chapter(models.Model):
 	slug 		= models.SlugField()
 	name 		= models.CharField(max_length=20)
 	detail 		= models.CharField(max_length=250, verbose_name='About the chapter')
-	content 	= models.TextField(null=True)
 	index 		= models.IntegerField(default=1, null=False)
+	content 	= RichTextUploadingField(null=True)
 
 	course 		= models.ForeignKey(Course, on_delete=models.CASCADE)
 
