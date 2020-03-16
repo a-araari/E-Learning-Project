@@ -34,4 +34,4 @@ Navigate to this cloned directory and run:
     * Visit http://127.0.0.1:8000/
     
 # WYSIWYG editor used:
-    CKEditor see [ckeditor.com](https://ckeditor.com/docs/ckeditor5/latest/index.html)
+   CKEditor see [ckeditor.com](https://ckeditor.com/docs/ckeditor5/latest/index.html)
