@@ -104,6 +104,7 @@ def course_update(request, course_slug):
 		if form.is_valid():
 			form.save()
 			messages.success(request, 'Course updated successfully.')
+			return redirect('courses:detail', course_slug=course.slug)
 	else:
 		form = CourseEditForm(instance=course)
 
