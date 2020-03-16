@@ -10,15 +10,16 @@
 	</title>
 	<!-- Bootstrap CDN -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-	<!-- Custom CSS -->
-	<link rel="stylesheet" href="{% static 'css/style.css' %}">
-
-	{{ form.media }}
 
 	<!-- Fontawesome CDN -->
 	<script src="https://kit.fontawesome.com/77189f6bdc.js" crossorigin="anonymous"></script>
 </head>
 <body>
+{% block father_container %}
+	
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
 	<!-- Nav -->
 	<nav class="navbar navbar-primary navbar-expand-sm ol-bg-primary">
 		<div class="container-fluid">
@@ -199,6 +200,8 @@
 	{% block custom_style %}
 				
 	{% endblock custom_style %}
+	
+{% endblock father_container %}
 	
 	<!-- Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
