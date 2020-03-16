@@ -5,7 +5,7 @@ You can view a working version of this app
 [here](http://...-django.herokuapp.com) (not working yet)
 
 # Introduction
-<img src="---" width="720" height="400">
+<img src="https://github.com/A-Arari/openlab/blob/master/screenshots/screenshot-full.png">
 # Installation
 Assuming you use virtualenv, follow these steps to download and run the
 e-learning application in this directory:
