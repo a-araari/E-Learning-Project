@@ -22,8 +22,8 @@ Navigate to the parent directory(openlab) and run:
     $ virtualenv venv
     $ "venv/scripts/activate"
     $ pip install django
-    $ cd openalab
-    $ pip install -r requirements
+    $ cd openlab
+    $ pip install -r requirements.txt
     $ py manage.py runserver
     
 Now Visit http://127.0.0.1:8000/
