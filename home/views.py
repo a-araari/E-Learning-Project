@@ -20,12 +20,6 @@ def about(request):
 
 
 def contact(request):
-	messages.debug(request, 'Debug')
-	messages.info(request, 'Info')
-	messages.success(request, 'Success')
-	messages.warning(request, 'Warning')
-	messages.error(request, 'Error')
-
 	if request.method == 'POST':
 		form = ContactForm(request.POST)
 		if form.is_valid():

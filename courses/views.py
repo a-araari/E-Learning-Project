@@ -83,7 +83,7 @@ def course_detail(request, course_slug):
 	context = {
 		'title': course.name,
 		'course': course,
-		'owner': course.teacher.user == request.user,
+		'owner': course.teacher.user_id == request.user.id,
 		'chapter_list': chapter_list,
 	}
 
@@ -121,6 +121,8 @@ def course_update(request, course_slug):
 @teacher_owner_required
 def course_delete(request, course_slug):
 	course = get_object_or_404(Course, slug=course_slug)
+	course_name = course.name
+	course_slug = course.slug
 
 	if request.method == 'POST':
 		delete = request.POST.get('confirm', None)
@@ -131,7 +133,8 @@ def course_delete(request, course_slug):
 
 	context = {
 		'title': 'Delete course',
-		'course': course
+		'course_name': course_name
+		'course_slug': course_slug
 	}
 
 	return render(request, 'courses/course_delete.html', context)
@@ -140,11 +143,12 @@ def course_delete(request, course_slug):
 def chapter_list(request, course_slug):
 	course = get_object_or_404(Course, slug=course_slug)
 	chapter_list = course.chapter_set.all()
+
 	context = {
 		'title': course.name,
 		'course': course,
 		'chapter_list': chapter_list,
-		'owner': course.teacher.user == request.user,
+		'owner': course.teacher.user_id == request.user.id,
 	}
 
 	return render(request, 'chapters/chapter_list.html', context)
@@ -173,7 +177,6 @@ def chapter_create(request, course_slug):
 
 	context = {
 		'title': course.name,
-		'course': course,
 		'form': form,
 	}
 
@@ -182,7 +185,7 @@ def chapter_create(request, course_slug):
 
 def chapter_detail(request, course_slug, chapter_slug):
 	course = get_object_or_404(Course, slug=course_slug)
-	# Getting the chapter from course__chater_set, so no need for @decorators
+	# Getting the chapter from course__chapter_set, so no need for @decorators
 	chapter = get_object_or_404(course.chapter_set, slug=chapter_slug)
 	chapter_set = course.chapter_set
 
@@ -190,7 +193,7 @@ def chapter_detail(request, course_slug, chapter_slug):
 		'title': course.name,
 		'course': course,
 		'chapter': chapter,
-		'owner': course.teacher.user == request.user,
+		'owner': course.teacher.user_id == request.user.id,
 	}
 	if chapter.index > 1:
 		context['previous'] = chapter_set.get(index=chapter.index - 1).get_absolute_url()
