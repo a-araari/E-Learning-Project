@@ -133,7 +133,7 @@ def course_delete(request, course_slug):
 
 	context = {
 		'title': 'Delete course',
-		'course_name': course_name
+		'course_name': course_name,
 		'course_slug': course_slug
 	}
 
