@@ -25,29 +25,29 @@
 		<div class="container-fluid">
 			<a href="{% url 'home' %}" class="navbar-brand ol-brand">OpenLab</a>
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item">
-					<a href="{% url 'home' %}" class="nav-link {{ home_active }}">
-						<i class="fas fa-home"></i>
-						Home
-					</a>
-				</li>
-				{% if user.is_student %}
+				{% if user.is_authenticated %}
+					<li class="nav-item">
+						<a href="{% url 'home' %}" class="nav-link {{ home_active }}">
+							<i class="fas fa-home"></i>
+							Home
+						</a>
+					</li>
 					<li class="nav-item">
 						<a href="{% url 'courses:list' %}" class="nav-link {{ courses_active }}">
 							Courses
 						</a>
 					</li>
+					<li class="nav-item">
+						<a href="{% url 'about' %}" class="nav-link {{ about_active }}">
+							About
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="{% url 'contact' %}" class="nav-link {{ contact_active }}">
+							Contact
+						</a>
+					</li>
 				{% endif %}
-				<li class="nav-item">
-					<a href="{% url 'about' %}" class="nav-link {{ about_active }}">
-						About
-					</a>
-				</li>
-				<li class="nav-item">
-					<a href="{% url 'contact' %}" class="nav-link {{ contact_active }}">
-						Contact
-					</a>
-				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				{% if user.is_authenticated %}
