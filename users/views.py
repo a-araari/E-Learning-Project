@@ -124,7 +124,6 @@ def teacher_signup(request):
 	return render(request, 'registration/teacher_signup.html', context)
 
 
-@login_required
 def change_password(request):
 	if request.method == 'POST':
 		form = PasswordChangeForm(request.user, request.POST)
@@ -153,7 +152,6 @@ def password_reset_complete(request):
     return redirect('login')
 
 
-@login_required
 def profile(request):
 	user = request.user
 	if request.method == 'POST':

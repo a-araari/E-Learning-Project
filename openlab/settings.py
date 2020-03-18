@@ -55,6 +55,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'login_required.middleware.LoginRequiredMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -89,6 +90,24 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+# login required middleware
+LOGIN_REQUIRED_IGNORE_VIEW_NAMES = [
+    'admin:index',
+    'admin:login',
+    'admin:logout',
+    'login',
+    'logout',
+    'signup',
+    'teacher_signup',
+    'student_signup',
+    'change_password',
+    'password_change',
+    'password_change_done',
+    'password_reset',
+    'password_reset_done',
+    'password_reset_confirm',
+    'password_reset_complete',
+]
 
 # crispy
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

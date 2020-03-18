@@ -15,6 +15,7 @@ from .decorators import (
 		teacher_owner_required,
 	)
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 from django.contrib import messages
 from django.urls import reverse
@@ -22,7 +23,6 @@ from users.models import Teacher
 from .models import Course, Chapter
 
 
-@login_required
 @teacher_required
 def course_create(request):
 	if request.method == 'POST':
@@ -46,7 +46,7 @@ def course_create(request):
 	return render(request, 'courses/course_create.html', context)
 
 
-class CourseList(ListView):
+class CourseList(LoginRequiredMixin, ListView):
 	model = Course
 	paginate_by = 20
 
@@ -60,7 +60,7 @@ class CourseList(ListView):
 		return context
 
 # Mixins...
-class MyCourseList(ListView):
+class MyCourseList(LoginRequiredMixin, ListView):
 	model = Course
 	paginate_by = 20
 
@@ -75,7 +75,6 @@ class MyCourseList(ListView):
 		return context
 
 
-# @login_required
 def course_detail(request, course_slug):
 	course = get_object_or_404(Course, slug=course_slug)
 	chapter_list = course.chapter_set.all()
@@ -90,7 +89,6 @@ def course_detail(request, course_slug):
 	return render(request, 'courses/course_detail.html', context)
 
 
-@login_required
 @teacher_owner_required
 def course_update(request, course_slug):
 	course = get_object_or_404(Course, slug=course_slug)
@@ -117,7 +115,6 @@ def course_update(request, course_slug):
 	return render(request, 'courses/course_update.html', context)
 
 
-@login_required
 @teacher_owner_required
 def course_delete(request, course_slug):
 	course = get_object_or_404(Course, slug=course_slug)
@@ -154,7 +151,6 @@ def chapter_list(request, course_slug):
 	return render(request, 'chapters/chapter_list.html', context)
 
 
-@login_required
 @teacher_owner_required
 def chapter_create(request, course_slug):
 	course = get_object_or_404(Course, slug=course_slug)
@@ -204,7 +200,6 @@ def chapter_detail(request, course_slug, chapter_slug):
 	return render(request, 'chapters/chapter_detail.html', context)
 
 
-@login_required
 @teacher_owner_required
 def chapter_delete(request, course_slug, chapter_slug):
 	course = get_object_or_404(Course, slug=course_slug)
@@ -228,7 +223,6 @@ def chapter_delete(request, course_slug, chapter_slug):
 	return render(request, 'chapters/chapter_delete.html', context)
 
 
-@login_required
 @teacher_owner_required
 def chapter_update_info(request, course_slug, chapter_slug):
 	course = get_object_or_404(Course, slug=course_slug)
@@ -261,7 +255,6 @@ def chapter_update_info(request, course_slug, chapter_slug):
 	return render(request, 'chapters/chapter_update_info.html', context)
 
 
-@login_required
 @teacher_owner_required
 def chapter_update_content(request, course_slug, chapter_slug):
 	course = get_object_or_404(Course, slug=course_slug)
