@@ -21,67 +21,103 @@
 	<link rel="stylesheet" href="{% static 'css/style.css' %}">
 
 	<!-- Nav -->
-	<nav class="navbar navbar-primary navbar-expand-sm ol-bg-primary">
+	<nav class="navbar navbar-primary navbar-expand-md ol-bg-primary sticky-top">
 		<div class="container-fluid">
-			<a href="{% url 'home' %}" class="navbar-brand ol-brand">OpenLab</a>
-			<ul class="navbar-nav mr-auto">
-				{% if user.is_authenticated %}
-					<li class="nav-item">
-						<a href="{% url 'home' %}" class="nav-link {{ home_active }}">
-							<i class="fas fa-home"></i>
-							Home
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="{% url 'courses:list' %}" class="nav-link {{ courses_active }}">
-							Courses
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="{% url 'about' %}" class="nav-link {{ about_active }}">
-							About
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="{% url 'contact' %}" class="nav-link {{ contact_active }}">
-							Contact
-						</a>
-					</li>
-				{% endif %}
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				{% if user.is_authenticated %}
-					{% if user.is_student %}
-						
-					{% elif user.is_teacher %}
+			<button class="navbar-toggler" data-toggle="collapse" data-target="#nav-data">
+				<span class="fas fa-bars text-white"></span>
+			</button>
+			<div>
+				<a href="{% url 'home' %}" class="navbar-brand ol-brand">OpenLab</a>
+			</div>
+
+			<div class="dropdown dropleft d-md-none">
+				
+				<button class="rounded-circle"
+						style="background:none; outline:none; border:none;"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<img src="{{ user.get_picture_url }}" alt="Profile" class="rounded-circle" width="38" height="38">
+				</button>
+				<div class="dropdown-menu mt-5" style="width: 256px" aria-labelledby="dropdownMenuButton">
+					<div class="text-center">
+						<img src="{{ user.get_picture_url }}" alt="Profile" class="rounded-circle" width="128">
+					</div>
+					<hr>
+					<a class="dropdown-item" href="{% url 'profile' %}">Edit profile</a>
+					<a class="dropdown-item" href="{% url 'change_password' %}">Change password</a>
+					<a class="dropdown-item disabled" href="#">Settings</a>
+				</div>
+			</div>
+			<div class="collapse navbar-collapse" id="nav-data">
+				<ul class="navbar-nav mr-auto">
+					{% if user.is_authenticated %}
 						<li class="nav-item">
-							<a href="{% url 'courses:my_courses' %}" class="nav-link {{ my_courses_active }}">
-								My courses
-								<i class="fas fa-book-open"></i>
+							<a href="{% url 'home' %}" class="nav-link {{ home_active }}">
+								<i class="fas fa-home"></i>
+								Home
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'courses:list' %}" class="nav-link {{ courses_active }}">
+								Courses
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'about' %}" class="nav-link {{ about_active }}">
+								About
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'contact' %}" class="nav-link {{ contact_active }}">
+								Contact
 							</a>
 						</li>
 					{% endif %}
-					<li class="nav-item">
-						<a href="{% url 'logout' %}" class="nav-link">
-							Logout
-							<i class="fas fa-sign-out-alt"></i>
-						</a>
-					</li>
-					<button onclick="location.href='{% url "profile" %}'"
-					class="rounded-circle p-0 ml-3"
-					style="background:none; outline:none; border:none; width: 38; height: 38;"
-					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<img src="{{ user.get_picture_url }}" alt="Profile" class="rounded-circle" width="38" height="38">
-					</button>
-				{% else %}
-					<li class="nav-item">
-						<a href="{% url 'signup' %}" class="nav-link">Signup</a>
-					</li>
-					<li class="nav-item">
-						<a href="{% url 'login' %}" class="nav-link">Login</a>
-					</li>
-				{% endif %}
-			</ul>
+				</ul>
+				<ul class="navbar-nav navbar-right">
+					{% if user.is_authenticated %}
+						{% if user.is_student %}
+							
+						{% elif user.is_teacher %}
+							<li class="nav-item">
+								<a href="{% url 'courses:my_courses' %}" class="nav-link {{ my_courses_active }}">
+									My courses
+									<i class="fas fa-book-open"></i>
+								</a>
+							</li>
+						{% endif %}
+						<li class="nav-item">
+							<a href="{% url 'logout' %}" class="nav-link">
+								Logout
+								<i class="fas fa-sign-out-alt"></i>
+							</a>
+						</li>
+						<div class="dropdown dropleft d-none d-md-block">
+							
+							<button class="rounded-circle p-0 ml-3"
+									style="background:none; outline:none; border:none; width: 38; height: 38;"
+									data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<img src="{{ user.get_picture_url }}" alt="Profile" class="rounded-circle" width="38" height="38">
+							</button>
+							<div class="dropdown-menu mt-5" style="width: 256px" aria-labelledby="dropdownMenuButton">
+								<div class="text-center">
+									<img src="{{ user.get_picture_url }}" alt="Profile" class="rounded-circle" width="128">
+								</div>
+								<hr>
+								<a class="dropdown-item" href="{% url 'profile' %}">Edit profile</a>
+								<a class="dropdown-item" href="{% url 'change_password' %}">Change password</a>
+								<a class="dropdown-item disabled" href="#">Settings</a>
+							</div>
+						</div>
+					{% else %}
+						<li class="nav-item">
+							<a href="{% url 'signup' %}" class="nav-link">Signup</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'login' %}" class="nav-link">Login</a>
+						</li>
+					{% endif %}
+				</ul>
+			</div>
 		</div>
 	</nav>
 	<!-- Sub nav items -->
