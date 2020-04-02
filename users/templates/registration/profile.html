@@ -13,7 +13,7 @@
 			<form method="POST" action="." enctype="multipart/form-data">
 				{% csrf_token %}
 				<div class="input-group text-center mb-4 mt-4">
-					<div class="col-5">
+					<div class="col-lg-5">
 						<div class="card p-3 file-field">
 							<div class="file-path-wrapper">
 								<img src="{{ user.get_picture_url }}" class="mb-2 rounded-circle" width='256px'>
@@ -23,7 +23,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-7 pl-4 text-left">
+					<div class="col-lg-7 pl-4 text-left">
 						<label for='first_name'>First name</label>
 						<input id="first_name" placeholder='{{ user.first_name|default:"" }}' name="first_name" type="text" class="form-control">
 						<br>
